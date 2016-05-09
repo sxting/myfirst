@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery带搜索跳转分页代码 - 站长素材</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/pagination.css" />
+    <style>
+        .result {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            margin-left: 20px;
+            float: left;
+        }
+        #Searchresult {
+            width: 360px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="Searchresult">
+        <div class="result">内容1</div>
+    </div>
+    <div id="hiddenresult" style="display: none">
+        <div class="result">内容1</div>
+        <div class="result">内容2</div>
+        <div class="result">内容3</div>
+        <div class="result">内容4</div>
+        <div class="result">内容5</div>
+        <div class="result">内容6</div>
+        <div class="result">内容7</div>
+        <div class="result">内容8</div>
+        <div class="result">内容9</div>
+        <div class="result">内容10</div>
+        <div class="result">内容11</div>
+        <div class="result">内容12</div>
+        <div class="result">内容13</div>
+        <div class="result">内容14</div>
+        <div class="result">内容15</div>
+        <div class="result">内容16</div>
+        <div class="result">内容17</div>
+        <div class="result">内容18</div>
+        <div class="result">内容19</div>
+        <div class="result">内容20</div>
+        <div class="result">内容21</div>
+        <div class="result">内容22</div>
+        <div class="result">内容23</div>
+        <div class="result">内容24</div>
+        <div class="result">内容25</div>
+        <div class="result">内容26</div>
+        <div class="result">内容27</div>
+    </div>
+    <!-- 显示分页 -->
+    <div class="pages">
+        <div id="Pagination"></div>
+        <div class="searchPage">
+          <span class="page-sum">共<strong class="allPage">15</strong>页</span>
+          <span class="page-go">跳转到<input type="text">页</span>
+          <a href="javascript:;" class="page-btn">确定</a>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.pagination.js"></script>
+<script type="text/javascript">
+    //此demo通过Ajax加载分页元素
+    var initPagination = function() {
+        var num_entries = $("#hiddenresult div.result").length; // 所有的产品的数量
+        $("strong.allPage").html($("#hiddenresult div.result").length)
+        $("#Pagination").pagination(num_entries, {
+            num_edge_entries: 1, //边缘页数
+            num_display_entries: 4, //主体页数
+            callback: pageselectCallback,
+            items_per_page: 3, //每页显示1项
+            prev_text: "前一页",
+            next_text: "后一页"
+        });
+    };
+
+    function pageselectCallback(page_index, jq){
+        var new_content = $("#hiddenresult div.result:eq("+page_index+")").clone();
+        $("#Searchresult").empty().append(new_content); //装载对应分页的内容
+        return false;
+    }
+    initPagination();
+    //ajax加载
+    // $("#hiddenresult").load("load.html", null, initPagination);
+    //$("#Pagination").pagination("5"); //传入的参数是一共有多少页
+</script>
